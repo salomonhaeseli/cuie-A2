@@ -5,6 +5,7 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.LocalTimeStringConverter;
 import javafx.util.converter.TimeStringConverter;
@@ -46,10 +47,12 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
     private void initializeParts() {
         startTime = new TextField("Startzeit");
+        startTime.setMaxWidth(100);
         startTime.getStyleClass().add("start-time");
         startTime.setVisible(getSkinnable().isEditable());
 
         endTime = new TextField("Endzeit");
+        endTime.setMaxWidth(100);
         endTime.getStyleClass().add("end-time");
         endTime.setVisible(getSkinnable().isEditable());
 
@@ -60,7 +63,11 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void layoutParts() {
-        getChildren().addAll(new VBox(captionLabel, nextAppointmentLabel, startTime, endTime));
+        HBox hbox = new HBox();
+        hbox.setSpacing(10);
+        hbox.getChildren().addAll(startTime, endTime);
+
+        getChildren().addAll(new VBox(captionLabel, nextAppointmentLabel, hbox));
     }
 
     private void setupValueChangeListeners() {

@@ -3,7 +3,7 @@
     -fx-background-color: white;
 }
 
-.my-time-control:bla .editable-time {
+.my-time-control:mandatory .editable-time {
     -fx-background-color: cyan;
 }
 
@@ -22,11 +22,13 @@
 }
 
 .my-time-control .start-time {
-    -fx-background-color: green;
-    -fx-font-size: 42;
+    -fx-background-color: #F6F6F6;
+    -fx-font: #6A6A6A;
+    -fx-font-size: 15;
 }
 
 .my-time-control .end-time {
-    -fx-background-color: blue;
-    -fx-font-size: 42;
+    -fx-background-color: #F6F6F6;
+    -fx-font: #6A6A6A;
+    -fx-font-size: 15;
 }
