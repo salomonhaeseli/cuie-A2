@@ -28,6 +28,7 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     private TextField endTime;
 
     private Label captionLabel;
+    private Label nextAppointmentLabel;
 
     MyTimeSkin(MyTimeControl control) {
         super(control);
@@ -54,10 +55,12 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
         captionLabel = new Label();
         captionLabel.getStyleClass().add("caption-label");
+
+        nextAppointmentLabel = new Label("15:15");
     }
 
     private void layoutParts() {
-        getChildren().addAll(new VBox(captionLabel, startTime, endTime));
+        getChildren().addAll(new VBox(captionLabel, nextAppointmentLabel, startTime, endTime));
     }
 
     private void setupValueChangeListeners() {
