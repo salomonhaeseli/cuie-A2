@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 import timecontrol_manufactory.MyTimeControl;
 import timecontrol_manufactory.SkinType;
 
-
 public class DemoPane extends BorderPane {
     private final PresentationModel pm;
 
@@ -89,7 +88,8 @@ public class DemoPane extends BorderPane {
         //todo: setup bindings to businesscontrol
         businessControl.actualTimeProperty().bindBidirectional(pm.startTimeProperty());
         businessControl.captionProperty().bind(pm.labelProperty());
-
+        businessControl.blaProperty()    .bind(pm.mandatoryProperty());
+        businessControl.editableProperty().bind(pm.readOnlyProperty().not());
     }
 
 }

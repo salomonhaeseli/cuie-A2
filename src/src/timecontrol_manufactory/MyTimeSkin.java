@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.converter.LocalTimeStringConverter;
 import javafx.util.converter.TimeStringConverter;
 
-
 class MyTimeSkin extends SkinBase<MyTimeControl> {
     // wird spaeter gebraucht
     private static final int ICON_SIZE  = 12;
@@ -26,6 +25,7 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
     //todo: replace it
     private TextField editableTime;
+    private Label readOnlyTime;
 
     private Label captionLabel;
 
@@ -44,24 +44,40 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void initializeParts() {
-
         editableTime = new TextField();
         editableTime.getStyleClass().add("editable-time");
+        editableTime.setVisible(getSkinnable().isEditable());
+
+        readOnlyTime = new Label();
+        readOnlyTime.getStyleClass().add("read-only-time");
+        readOnlyTime.setVisible(!getSkinnable().isEditable());
 
         captionLabel = new Label();
         captionLabel.getStyleClass().add("caption-label");
     }
 
     private void layoutParts() {
-        getChildren().addAll(new VBox(captionLabel,editableTime));
+        getChildren().addAll(new VBox(captionLabel, editableTime, readOnlyTime));
     }
 
     private void setupValueChangeListeners() {
+        getSkinnable().editableProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                editableTime.setVisible(true);
+                readOnlyTime.setVisible(false);
+            }
+            else {
+                editableTime.setVisible(false);
+                readOnlyTime.setVisible(true);
+            }
+        });
     }
 
     private void setupBindings() {
         editableTime.textProperty().bindBidirectional(getSkinnable().actualTimeProperty(),
-                                                        new LocalTimeStringConverter());
+                                                      new LocalTimeStringConverter());
+
+        readOnlyTime.textProperty().bind(getSkinnable().actualTimeProperty().asString());
 
         captionLabel.textProperty().bind(getSkinnable().captionProperty());
     }

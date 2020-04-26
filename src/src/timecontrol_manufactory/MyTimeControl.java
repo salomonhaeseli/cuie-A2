@@ -1,17 +1,22 @@
 package timecontrol_manufactory;
 
 import java.time.LocalTime;
+
 import java.util.regex.Pattern;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.css.PseudoClass;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.text.Font;
 
 public class MyTimeControl extends Control {
+    private static final PseudoClass BLA_CLASS = PseudoClass.getPseudoClass("bla");
 
     private static final String CONVERTIBLE_REGEX = "now|(\\d{1,2}[:]{0,1}\\d{0,2})";
     private static final String TIME_FORMAT_REGEX = "\\d{2}:\\d{2}";
@@ -24,11 +29,17 @@ public class MyTimeControl extends Control {
     private final SkinType skinType;
 
     // all properties
-    private final ObjectProperty<LocalTime> actualTime = new SimpleObjectProperty<>();
-    private final StringProperty caption = new SimpleStringProperty();
+    private final ObjectProperty<LocalTime> actualTime    = new SimpleObjectProperty<>();
+    private final StringProperty            caption       = new SimpleStringProperty();
+    private final BooleanProperty           bla           = new SimpleBooleanProperty(){
+        @Override
+        protected void invalidated() {
+            super.invalidated();
+            pseudoClassStateChanged(BLA_CLASS, get());
+        }
+    };
 
-
-
+    private final BooleanProperty editable = new SimpleBooleanProperty();
 
     public MyTimeControl(SkinType skinType) {
         this.skinType = skinType;
@@ -59,6 +70,7 @@ public class MyTimeControl extends Control {
         }
     }
 
+
     // generated getter und setter
 
     public LocalTime getActualTime() {
@@ -83,5 +95,29 @@ public class MyTimeControl extends Control {
 
     public void setCaption(String caption) {
         this.caption.set(caption);
+    }
+
+    public boolean isBla() {
+        return bla.get();
+    }
+
+    public BooleanProperty blaProperty() {
+        return bla;
+    }
+
+    public void setBla(boolean bla) {
+        this.bla.set(bla);
+    }
+
+    public boolean isEditable() {
+        return editable.get();
+    }
+
+    public BooleanProperty editableProperty() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable.set(editable);
     }
 }

@@ -3,11 +3,20 @@
     -fx-background-color: white;
 }
 
+.my-time-control:bla .editable-time {
+    -fx-background-color: cyan;
+}
+
 .my-time-control .editable-time {
     -fx-background-color: pink;
 }
 
-.my-time-control .caption-label{
+.my-time-control .read-only-time {
+    -fx-background-color: green;
+    -fx-font-size: 28;
+}
+
+.my-time-control .caption-label {
     -fx-background-color: orange;
     -fx-font-size: 42;
 }
