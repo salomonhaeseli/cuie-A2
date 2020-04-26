@@ -24,8 +24,8 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
 
     //todo: replace it
-    private TextField editableTime;
-    private Label readOnlyTime;
+    private TextField startTime;
+    private TextField endTime;
 
     private Label captionLabel;
 
@@ -44,41 +44,36 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void initializeParts() {
-        editableTime = new TextField();
-        editableTime.getStyleClass().add("editable-time");
-        editableTime.setVisible(getSkinnable().isEditable());
+        startTime = new TextField("Startzeit");
+        startTime.getStyleClass().add("start-time");
+        startTime.setVisible(getSkinnable().isEditable());
 
-        readOnlyTime = new Label();
-        readOnlyTime.getStyleClass().add("read-only-time");
-        readOnlyTime.setVisible(!getSkinnable().isEditable());
+        endTime = new TextField("Endzeit");
+        endTime.getStyleClass().add("end-time");
+        endTime.setVisible(getSkinnable().isEditable());
 
         captionLabel = new Label();
         captionLabel.getStyleClass().add("caption-label");
     }
 
     private void layoutParts() {
-        getChildren().addAll(new VBox(captionLabel, editableTime, readOnlyTime));
+        getChildren().addAll(new VBox(captionLabel, startTime, endTime));
     }
 
     private void setupValueChangeListeners() {
         getSkinnable().editableProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue){
-                editableTime.setVisible(true);
-                readOnlyTime.setVisible(false);
+                startTime.setEditable(true);
+                endTime.setEditable(true);
             }
             else {
-                editableTime.setVisible(false);
-                readOnlyTime.setVisible(true);
+                startTime.setEditable(false);
+                endTime.setEditable(false);
             }
         });
     }
 
     private void setupBindings() {
-        editableTime.textProperty().bindBidirectional(getSkinnable().actualTimeProperty(),
-                                                      new LocalTimeStringConverter());
-
-        readOnlyTime.textProperty().bind(getSkinnable().actualTimeProperty().asString());
-
         captionLabel.textProperty().bind(getSkinnable().captionProperty());
     }
 }

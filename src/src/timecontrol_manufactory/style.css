@@ -20,3 +20,13 @@
     -fx-background-color: orange;
     -fx-font-size: 42;
 }
+
+.my-time-control .start-time {
+    -fx-background-color: green;
+    -fx-font-size: 42;
+}
+
+.my-time-control .end-time {
+    -fx-background-color: blue;
+    -fx-font-size: 42;
+}

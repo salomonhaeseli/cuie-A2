@@ -16,7 +16,7 @@ import javafx.scene.control.Skin;
 import javafx.scene.text.Font;
 
 public class MyTimeControl extends Control {
-    private static final PseudoClass BLA_CLASS = PseudoClass.getPseudoClass("bla");
+    private static final PseudoClass MANDATORY = PseudoClass.getPseudoClass("mandatory");
 
     private static final String CONVERTIBLE_REGEX = "now|(\\d{1,2}[:]{0,1}\\d{0,2})";
     private static final String TIME_FORMAT_REGEX = "\\d{2}:\\d{2}";
@@ -31,11 +31,11 @@ public class MyTimeControl extends Control {
     // all properties
     private final ObjectProperty<LocalTime> actualTime    = new SimpleObjectProperty<>();
     private final StringProperty            caption       = new SimpleStringProperty();
-    private final BooleanProperty           bla           = new SimpleBooleanProperty(){
+    private final BooleanProperty mandatory = new SimpleBooleanProperty(){
         @Override
         protected void invalidated() {
             super.invalidated();
-            pseudoClassStateChanged(BLA_CLASS, get());
+            pseudoClassStateChanged(MANDATORY, get());
         }
     };
 
@@ -97,16 +97,16 @@ public class MyTimeControl extends Control {
         this.caption.set(caption);
     }
 
-    public boolean isBla() {
-        return bla.get();
+    public boolean getMandatory() {
+        return mandatory.get();
     }
 
-    public BooleanProperty blaProperty() {
-        return bla;
+    public BooleanProperty mandatoryProperty() {
+        return mandatory;
     }
 
-    public void setBla(boolean bla) {
-        this.bla.set(bla);
+    public void setMandatory(boolean mandatory) {
+        this.mandatory.set(mandatory);
     }
 
     public boolean isEditable() {
